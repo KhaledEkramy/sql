@@ -3,7 +3,11 @@
 /* this is a multimline comment 
     this is the second line
 */
-
+/*
+SELECT is the most common operation in SQL, called "the query". 
+SELECT retrieves data from one or more tables, or expressions. 
+Standard SELECT statements have no persistent effects on the database.
+*/
 SELECT 1+1; -- this is a comment till the end of the line
 SELECT 1+1; # this is a comment
 SELECT 1+1; /* this is a comment */
@@ -15,7 +19,7 @@ SELECT 1 + /* this can also be an in-line comment */ 1;
 
 SELECT 'Hello, SQL'; -- single quotes for strings
 
-SELECT "Hello, SQL"; -- double quotes for strings
+SELECT "Hello, SQL"; -- double quotes for strings but the preferred way is to use single quotess
 
 SELECT "My", "name", "is", "Ahmed"; -- select multiple values
 
@@ -37,15 +41,22 @@ SELECT 1 + 2;
 SELECT 5 % 2;
 
 -- boolean
+-- = is for exact matches, while LIKE is for pattern matching.
+-- LIKE is generally slower than = due to the pattern matching process.
+-- LIKE is more flexible for searching for similar values.
 SELECT 1 = 2;
 
-SELECT 1 <> 2;
+SELECT 1 <> 2; -- not equal = != you can use both of them
 
 SELECT 'Hello, SQL' = 'Hello, SQL';
 
-SELECT 'hello, sql' = 'Hello, SQL';
+SELECT 'hello, sql' = 'Hello, SQL'; #True
 
-SELECT 'Hello, SQL' LIKE 'Hello, SQL';
+SELECT 'Hello, SQL' LIKE 'hello, SQL'; #True
+
+-- SQL Wildcards:**
+-- % : Matches any number of characters (zero or more).
+-- _ : Matches exactly one character.
 
 SELECT 'Hello, SQL' LIKE 'Hello, %';
 
@@ -70,7 +81,7 @@ SELECT CHAR(57);
 SELECT CHAR(ASCII('d'));
 
 -- date and time functions
-SELECT ADDDATE('2022-12-08', 24);
+SELECT ADDDATE('2022-12-08', 24); # will add 24 days to the mentioned date
 SELECT 
     ADDDATE('2022-12-08', 24),
     DAY('2022-12-08'),
@@ -81,15 +92,24 @@ SELECT CURDATE();
 
 -- string functions
 SELECT CONCAT('my', 'name', 'is', 'prince');
-SELECT CONCAT_WS(' ', 'my', 'name', 'is', 'prince');
+
+# CONCAT_WS(specifier, stream of strings)
+SELECT CONCAT_WS(', ', 'my', 'name', 'is', 'prince'); #CONCAT_WS MEANS CONCATINATE WITH SPECIFIER WHICH IN THIS CASE = ', '
+
 SELECT LENGTH('ahmed');
-SELECT LENGTH(CONCAT_WS(' ', 'my', 'name', 'is', 'prince'));
+SELECT LENGTH(CONCAT_WS(' ', 'my', 'name', 'is', 'prince')); 
 SELECT LOWER('AHMED');
+
+#LEFT/RIGHT(STRING, NUMBER OF CHARS FROM LEFT/RIGHT);
 SELECT LEFT('This is the a text', 10);
 SELECT RIGHT('This is the a text', 10);
+
+#SUBSTR(string, start_position, length) //// start_position is 1-based
+SELECT SUBSTR('This is a long text', 7, 10);
 SELECT SUBSTR('This is a long text', 6, 10);
+
 SELECT TRIM('  bar   ');
-SELECT TRIM(LEADING 'x' FROM 'xbarx');
+SELECT TRIM(LEADING 'x' FROM 'xbarx'); 
 SELECT TRIM(TRAILING 'x' FROM 'xbarx');
 SELECT TRIM(BOTH 'x' FROM 'xbarx');
 
@@ -97,15 +117,21 @@ SELECT TRIM(BOTH 'x' FROM 'xbarx');
 SELECT TRUE, FALSE;
 SELECT 'b' IN ('a' , 'b', 'c', 'd', 'e', 'f');
 SELECT 'b' NOT IN ('a' , 'b', 'c', 'd', 'e', 'f');
-SELECT instr("abcdefg", "f") IS TRUE;
-SELECT instr("abcdefg", "x") IS TRUE;
+
+/*
+Function: INSTR(str, substr)
+Purpose: This function returns the position "1-based" of the first occurrence of the substring substr within the string str. 
+	If the substring is not found, it returns 0.
+*/
+SELECT INSTR("abcdefg", "f") IS TRUE;
+SELECT INSTR("abcdefg", "x") IS TRUE;
 SELECT ISNULL(NULL);
-SELECT ISNULL(1/0);
-SELECT ISNULL('');
+SELECT ISNULL(1/0); # is null
+SELECT ISNULL(''); # it's not null which is the opposite of what in python.
 
-SELECT 5 between 1 AND 10;
+SELECT 5 between 1 AND 10; # IF 5 IS BETWEEN 1 AND 10 OR NOT
 
-SELECT IF(5 > 4, "TRUE", "FALSE");
+SELECT IF(5 > 4, "TRUE", "FALSE"); # RETURN TRUE IF 5>4 AND FALSE IF ISN'T.
 
 -- assignment operator SET using := and = 
 -- assignment operator SELECT using :=
@@ -113,13 +139,24 @@ SET @var5 := 5;
 SET @vara = 'a';
 SELECT @var5, @vara, @var10 := 10;
 
-SELECT @var11 = 11; -- null
+# See the following example: 
+
+SET @VAR_1 = 5;
+SET @VAR_1 = @VAR_1 + 1; 
+SELECT @VAR_1; -- @VAR_1 = 6
+
+SELECT @var11 = 11; -- null because = is not an assignment operator with SELECT
 
 --  select from tables
 --
-SELECT actor_id FROM sakila.actor;
-SELECT count(actor_id) FROM sakila.actor;
-SELECT DISTINCT actor_id FROM sakila.actor;
+SELECT actor_id FROM sakila.actor; -- means get all data from column actor_id which in table actor and display it on the o/p
+SELECT count(actor_id) FROM sakila.actor; -- how many rows in actor_id column
+
+-- to remove duplicate values from first_name column
+SELECT COUNT(actor.first_name) FROM sakila.actor;
+SELECT COUNT(Distinct actor.first_name) FROM sakila.actor;
+SELECT DISTINCT actor.first_name from sakila.actor;
+
 SELECT actor_id, first_name FROM sakila.actor;
 USE sakila;
 SELECT actor_id, first_name FROM actor;
@@ -181,7 +218,7 @@ SET @id := 38;
 EXECUTE sql_stmt USING @text, @id;
 
 DROP PREPARE sql_stmt;
-DEALLOCATE PREPARE sql_stmt;
+DEALLOCATE PREPARE sql_stmt; -- IS A STANDARD QUERY FOR ALL DIFFERENT DATABASES NOT LIKE 'DROP PREPARE' WHICH IS SPECIFIC FOR MYSQL AND SOME OTHER DB
 
 -- group by
 --
@@ -192,12 +229,11 @@ SELECT customer_id, count(rental_id) FROM rental GROUP BY customer_id ORDER BY c
 SELECT customer_id, count(rental_id) FROM rental GROUP BY customer_id ORDER BY count(rental_id) DESC;
 
 SELECT customer_id, sum(amount) FROM payment GROUP BY customer_id ORDER BY sum(amount) DESC;
-
 -- having
 --
 SELECT customer_id, sum(amount) FROM payment GROUP BY customer_id WHERE  sum(amount) > 150 ORDER BY sum(amount) DESC; -- error!
 SELECT customer_id, sum(amount) FROM payment GROUP BY customer_id HAVING sum(amount) > 150 ORDER BY sum(amount) DESC; 
-
+-- SEE THIS PROPLEM https://leetcode.com/problems/consecutive-numbers/?envType=problem-list-v2&envId=e97a9e5m 
 -- joins
 --
 SELECT category_id, name FROM category;
@@ -222,7 +258,7 @@ USING (category_id);
 SELECT fc.film_id, c.category_id, c.name FROM category AS c
 RIGHT JOIN film_category AS fc
 USING (category_id);
-
+-- see this proplem very important: https://leetcode.com/problems/employees-with-missing-information/description/
 -- join 3 tables
 --
 SELECT fc.film_id, f.title, c.category_id, c.name FROM category AS c
@@ -267,3 +303,4 @@ INNER JOIN film_category AS fc
 ON fc.category_id  = c.category_id
 INNER JOIN film AS f
 ON f.film_id = fc.film_id;
+-- it's very important to review the importance of views which is circuled around the abstraction of the table structure

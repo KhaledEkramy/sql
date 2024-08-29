@@ -30,6 +30,7 @@ INSERT INTO t1 VALUES (1, 'ali'); -- error
 CREATE TABLE t2 (
     id INT, 
     first_name VARCHAR(20),
+    -- After finishing define all columns, you can start putting constrains like UNIQUE
     UNIQUE (id)
     );
 DESC t2;
@@ -37,7 +38,7 @@ DESC t2;
 CREATE TABLE t3 (
     id INT, 
     first_name VARCHAR(20),
-    CONSTRAINT id_unique UNIQUE (id)
+    CONSTRAINT id_unique UNIQUE (id) -- like UNIQUE(id)
     );
 DESC t3;
 
@@ -106,7 +107,8 @@ INSERT INTO t6 VALUES (1, 'sami'); -- error
 CREATE TABLE t7 (
     id INT, 
     class VARCHAR(20),
-    FOREIGN KEY (id) REFERENCES t6(id)
+    FOREIGN KEY (id) REFERENCES t6(id) -- When defining a foreign key it's must reference to a primary key
+    -- ask yourself foreign key for which primary key ??
     );
 TABLE t7;
 

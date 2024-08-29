@@ -33,7 +33,7 @@ ls -l testdb
 # Download the dump file from https://dev.mysql.com/doc/index-other.html
 # make sure to download the schema and data files
 # make sure to change the path to the dump file
-SOURCE /usr/databases/sakila-db/sakila-schema.sql;
+SOURCE /usr/databases/sakila-db/sakila-schema.sql; #make sure to change the path to the dump file
 USE sakila;
 SOURCE /usr/databases/sakila-db/sakila-data.sql;
 SHOW TABLES FROM sakila;
