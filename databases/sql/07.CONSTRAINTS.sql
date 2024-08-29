@@ -14,7 +14,7 @@ USE testdb;
 DROP TABLE IF EXISTS t1;
 
 CREATE TABLE t1 (
-    id INT UNIQUE, 
+    id INT UNIQUE, -- remember to force this use: ON DUPLICATE KEY UPDATE ....
     first_name VARCHAR(20)
     );
 DESC t1;
@@ -109,6 +109,8 @@ CREATE TABLE t7 (
     class VARCHAR(20),
     FOREIGN KEY (id) REFERENCES t6(id) -- When defining a foreign key it's must reference to a primary key
     -- ask yourself foreign key for which primary key ??
+    -- FOREIGN KEY CONSTRAIN MEANS DON'T INSERT A COLUMN WHICH HAS NO PRIMARY KEY IN THE TABLE WHICH THIS FOREIGN KEY REFERENCES TO.
+    -- 	SO IN t7 only insert columns with id exists in t6 table 
     );
 TABLE t7;
 
