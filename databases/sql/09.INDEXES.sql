@@ -13,6 +13,7 @@
 -- So the actual difference between a clustered index and a non-clustered index is that the leaf nodes of a clustered index contain the actual data rows, while the leaf nodes of a non-clustered index contain the index key and a pointer to the actual data row.
 -- But the structure of the B-tree index is the same for both clustered and non-clustered indexes.
 -- Indexes sometimes can be created automatically by the database engine, for example, when you create a primary key or a unique constraint, the database engine will automatically create an index for you.
+-- If you add a primary key constraint to an existing table that already has a clustered index, SQL Server will enforce the primary key using a non-clustered index.
 
 -- important tutorial: https://www.sqlservertutorial.net/sql-server-indexes/
 
