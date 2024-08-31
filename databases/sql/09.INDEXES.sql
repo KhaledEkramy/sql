@@ -1,3 +1,4 @@
+-- Active: 1725125915635@@127.0.0.1@3306@testdb
 -- indexes
 -- b-tree by default    
 -- unique
@@ -27,12 +28,10 @@ CREATE TABLE t1 (
     first_name VARCHAR(20),
     INDEX (first_name)
     );
-
 DESC t1;
 
 -- other ways to define index
 CREATE INDEX idx_first_name ON t1 (first_name);
-
 -- drop index
 
 DROP INDEX idx_first_name ON t1;
