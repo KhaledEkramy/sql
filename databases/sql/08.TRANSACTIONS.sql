@@ -1,13 +1,12 @@
--- Active: 1688236555284@@mysql-db@3306
+-- Active: 1725125915635@@127.0.0.1@3306@testdb
 -- ACID
 -- Atomicity
 -- Consistency
 -- Isolation - locks
 -- Durability - rollback
 
-
 show databases;
-
+Drop DATABASE IF EXISTS testdb;
 CREATE DATABASE IF NOT EXISTS testdb;
 
 -- create table
@@ -77,5 +76,5 @@ Isolation
     For example, in an application that transfers funds from one account to another, the isolation property ensures that another transaction sees the transferred funds in one account or the other, but not in both, nor in neither.
 Durability
     After a transaction successfully completes, changes to data persist and are not undone, even in the event of a system failure.
-    For example, in an application that transfers funds from one account to another, the durability property ensures that the changes made to each account will not be reversed. 
+    For example, in an application thsat transfers funds from one account to another, the durability property ensures that the changes made to each account will not be reversed. 
 */

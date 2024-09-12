@@ -1,6 +1,6 @@
--- stored procedure
+-- stored procedure: allow you to save a set of SQL statements so they can be reused multiple times.
 -- functions
--- triggers
+-- triggers: Don't care about it.
 -- views
 
 -- functions
