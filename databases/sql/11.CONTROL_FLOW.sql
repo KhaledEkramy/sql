@@ -1,3 +1,4 @@
+-- Active: 1726585053343@@127.0.0.1@3306@sakila
 -- if elseif else 
 -- case when then else end
 -- while end while
@@ -14,6 +15,7 @@ SELECT title,
     if(price>3,'high','low') as rental_rate_status 
 FROM film_list;
 
+SELECT IFNULL(NULL, 5);
 
 -- use case when then else end in sql statement
 -- create a sql statement on film_list view to return high if rent is more than 3 and low if less than 3 using case when then else end statement
@@ -25,8 +27,6 @@ SELECT title,
         ELSE 'low'
     END AS rental_rate_status
 FROM film_list;
-
-
 
 -- use if stmt in functions or stored procedure
 
