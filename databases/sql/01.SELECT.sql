@@ -1,3 +1,4 @@
+-- Active: 1726760582594@@127.0.0.1@3306@sakila
 
 -- this is a comment 
 /* this is a multimline comment 
@@ -303,3 +304,5 @@ ON fc.category_id  = c.category_id
 INNER JOIN film AS f
 ON f.film_id = fc.film_id;
 -- it's very important to review the importance of views which is circuled around the abstraction of the table structure
+
+DROP VIEW vw_file_genre;
